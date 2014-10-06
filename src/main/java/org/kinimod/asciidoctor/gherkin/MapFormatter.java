@@ -7,46 +7,47 @@ import gherkin.formatter.model.Feature;
 import gherkin.formatter.model.Scenario;
 import gherkin.formatter.model.ScenarioOutline;
 import gherkin.formatter.model.Step;
+import gherkin.parser.Parser;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.kinimod.asciidoctor.gherkin.template.TemplateProcessor;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.apache.commons.io.IOUtils;
 
-public class AsciidocFormatter implements Formatter {
+public class MapFormatter implements Formatter {
 
-	private TemplateProcessor templateProcessor;
+	public static String getDefaultTemplate() {
 
-	public AsciidocFormatter(StringBuilder builder) {
-		this.builder = builder;
-		ClassPathXmlApplicationContext applicationContext = null;
+		String text = "";
 		try {
-			applicationContext = new ClassPathXmlApplicationContext();
-
-			applicationContext.setConfigLocation("classpath:/beans.xml");
-			applicationContext.refresh();
-			this.templateProcessor = applicationContext
-					.getBean(TemplateProcessor.class);
-
-		} finally {
-			if (applicationContext != null) {
-				applicationContext.close();
-			}
+			text = IOUtils
+					.toString(
+							MapFormatter.class
+									.getResourceAsStream("/com/github/domgold/asciidoctor/extension/gherkin/default_template.erb"),
+							"UTF-8");
+		} catch (IOException e) {
+			throw new RuntimeException(e);
 		}
+		return text;
 	}
 
-	private StringBuilder builder;
+	public static Map<String, Object> parse(String fileContent) {
+		MapFormatter f = new MapFormatter();
+		Parser p = new Parser(f);
+		p.parse(fileContent, "feature", 0);
+		return f.getFeature();
+	}
 
 	private Map<String, Object> currentFeature;
-
 	private Map<String, Object> currentScenario;
-
 	private Map<String, Object> currentStep;
-
 	private Map<String, Object> currentExamples;
+
+	public MapFormatter() {
+		super();
+	}
 
 	@Override
 	public void background(Background arg0) {
@@ -64,18 +65,6 @@ public class AsciidocFormatter implements Formatter {
 
 	@Override
 	public void endOfScenarioLifeCycle(Scenario arg0) {
-	}
-
-	@Override
-	public void eof() {
-		try {
-			String content = templateProcessor.process("feature.ftl",
-					currentFeature);
-			builder.append(content);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-
 	}
 
 	@Override
@@ -120,12 +109,22 @@ public class AsciidocFormatter implements Formatter {
 	public void uri(String arg0) {
 	}
 
+	@SuppressWarnings("unchecked")
 	private void addNew(Map<String, Object> baseMap, String key,
 			Map<String, Object> newMap) {
 		if (!baseMap.containsKey(key)) {
 			baseMap.put(key, new ArrayList<Map<String, Object>>());
 		}
 		((List<Map<String, Object>>) baseMap.get(key)).add(newMap);
+	}
+
+	@Override
+	public void eof() {
+
+	}
+
+	public Map<String, Object> getFeature() {
+		return currentFeature;
 	}
 
 }
