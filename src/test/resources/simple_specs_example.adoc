@@ -2,6 +2,6 @@
 
 == My features
 
-include::gherkin:./simple.feature[]
+gherkin::./simple.feature[]
 
-include::gherkin:./simple2.feature[]
+gherkin::./simple2.feature[]

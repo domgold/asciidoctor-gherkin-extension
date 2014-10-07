@@ -12,7 +12,7 @@ include::included_doc.adoc[]
 
 == Some features with default template
 
-include::gherkin:./complex.feature[]
+gherkin::./complex.feature[]
 
 == The same feature with a custom template
 
@@ -32,9 +32,10 @@ include::my_custom_feature_template.erb[]
 The following include line
 
 ....
-\include::gherkin:./complex.feature[template=my_custom_feature_template.erb]
+gherkin::./complex.feature[template=my_custom_feature_template.erb]
 ....
 
 renders to:
 
-include::gherkin:./complex.feature[template=my_custom_feature_template.erb]
+gherkin::./complex.feature[template=my_custom_feature_template.erb]
+

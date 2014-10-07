@@ -3,11 +3,15 @@ require 'asciidoctor/extensions'
 require 'erb'
 require 'java'
 
-class GherkinIncludeProcessor < Asciidoctor::Extensions::IncludeProcessor
+class GherkinBlockMacroProcessor < Asciidoctor::Extensions::BlockMacroProcessor
+  use_dsl
+	
+  named :gherkin
+  name_positional_attributes 'template'
 
-  def process doc, reader, target, attributes
-    #get the default template from java resource
-    template_content = org.kinimod.asciidoctor.gherkin.MapFormatter.getDefaultTemplate()
+  def process parent, target, attributes
+    doc = parent.document
+    reader = parent.document.reader
     
     if doc.attributes.key?('docdir') && attributes.key?('template') && File.exist?(File.expand_path(attributes['template'], doc.attributes['docdir']))
     	template_file = File.open(File.expand_path(attributes['template'], doc.attributes['docdir']), "rb")
@@ -18,7 +22,7 @@ class GherkinIncludeProcessor < Asciidoctor::Extensions::IncludeProcessor
     
     erb_template = ERB.new(template_content)
     
-    feature_file_name = target[8..-1]
+    feature_file_name = target
     if doc.attributes.key?('docdir') 
     	feature_file_name = File.expand_path(feature_file_name, doc.attributes['docdir'])
     end
@@ -33,11 +37,7 @@ class GherkinIncludeProcessor < Asciidoctor::Extensions::IncludeProcessor
 	
     reader.push_include rendered_template_output, target, target, 1, attributes
 	
-    reader
-  end
-  
-  def handles? target
-	target.start_with? 'gherkin:'
+    nil
   end
 
 end
