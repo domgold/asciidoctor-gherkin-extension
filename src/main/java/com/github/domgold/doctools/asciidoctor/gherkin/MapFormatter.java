@@ -1,4 +1,4 @@
-package org.kinimod.asciidoctor.gherkin;
+package com.github.domgold.doctools.asciidoctor.gherkin;
 
 import gherkin.formatter.Formatter;
 import gherkin.formatter.model.Background;
@@ -34,7 +34,7 @@ public class MapFormatter implements Formatter {
 			text = IOUtils
 					.toString(
 							MapFormatter.class
-									.getResourceAsStream("/com/github/domgold/asciidoctor/extension/gherkin/default_template.erb"),
+									.getResourceAsStream("default_template.erb"),
 							"UTF-8");
 		} catch (IOException e) {
 			throw new RuntimeException(e);

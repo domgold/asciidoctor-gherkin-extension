@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.kinimod.asciidoctor.gherkin;
+package com.github.domgold.doctools.asciidoctor.gherkin;
 
 import org.asciidoctor.Asciidoctor;
 import org.asciidoctor.extension.RubyExtensionRegistry;
@@ -36,7 +36,7 @@ public final class GherkinExtensionRegistry implements ExtensionRegistry {
 				.loadClass(
 						this.getClass()
 								.getResourceAsStream(
-										"/com/github/domgold/asciidoctor/extension/gherkin/gherkinblockmacro.rb"))
+										"gherkinblockmacro.rb"))
 				.blockMacro("gherkin", "GherkinBlockMacroProcessor");
 	}
 

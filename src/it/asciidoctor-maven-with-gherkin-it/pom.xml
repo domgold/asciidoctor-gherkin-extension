@@ -21,7 +21,7 @@
 				<version>1.5.0</version>
 				<dependencies>
 					<dependency>
-						<groupId>org.kinimod.asciidoctor.extensions</groupId>
+						<groupId>com.github.domgold.doctools.asciidoctor</groupId>
 						<artifactId>asciidoctor-gherkin-extension</artifactId>
 						<version>@project.version@</version>
 					</dependency>
@@ -50,12 +50,12 @@
 					<dependency>
 						<groupId>org.asciidoctor</groupId>
 						<artifactId>asciidoctor-maven-plugin</artifactId>
-						<version>@project.version@</version>
+						<version>1.5.0</version>
 					</dependency>
 					<dependency>
-						<groupId>org.kinimod.asciidoctor.extensions</groupId>
+						<groupId>com.github.domgold.doctools.asciidoctor</groupId>
 						<artifactId>asciidoctor-gherkin-extension</artifactId>
-						<version>1.0-SNAPSHOT</version>
+						<version>@project.version@</version>
 					</dependency>
 				</dependencies>
 			</plugin> -->

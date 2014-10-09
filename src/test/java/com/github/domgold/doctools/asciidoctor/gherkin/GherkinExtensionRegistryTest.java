@@ -1,4 +1,4 @@
-package org.kinimod.asciidoctor.gherkin;
+package com.github.domgold.doctools.asciidoctor.gherkin;
 
 import org.asciidoctor.Asciidoctor;
 import org.junit.Test;

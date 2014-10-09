@@ -18,7 +18,7 @@ class GherkinBlockMacroProcessor < Asciidoctor::Extensions::BlockMacroProcessor
     	template_file = File.open(File.expand_path(attributes['template'], doc.attributes['docdir']), "rb")
     	template_content = template_file.read 
     else
-    	template_content = org.kinimod.asciidoctor.gherkin.MapFormatter.getDefaultTemplate()
+    	template_content = com.github.domgold.doctools.asciidoctor.gherkin.MapFormatter.getDefaultTemplate()
     end
     
     erb_template = ERB.new(template_content)
@@ -32,13 +32,11 @@ class GherkinBlockMacroProcessor < Asciidoctor::Extensions::BlockMacroProcessor
     feature_file_content = file.read
     
     #parse feature and make the result available to the template via binding as 'feature' hash.
-    feature = org.kinimod.asciidoctor.gherkin.MapFormatter.parse(feature_file_content)
+    feature = com.github.domgold.doctools.asciidoctor.gherkin.MapFormatter.parse(feature_file_content)
     
     rendered_template_output = erb_template.result(binding())
 	
     reader.push_include rendered_template_output, target, target, 1, attributes
-	
     nil
   end
-
 end
