@@ -1,26 +1,20 @@
 package org.kinimod.asciidoctor.gherkin;
 
-import static org.junit.Assert.*;
+import static org.asciidoctor.OptionsBuilder.options;
 
 import java.io.File;
-
-import static org.asciidoctor.OptionsBuilder.*;
+import java.io.IOException;
 
 import org.asciidoctor.Asciidoctor;
 import org.asciidoctor.Options;
 import org.asciidoctor.SafeMode;
 import org.asciidoctor.extension.RubyExtensionRegistry;
-import org.junit.AfterClass;
 import org.junit.Test;
 
 public class GherkinRubyBlockMacroTest {
 
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
-
 	@Test
-	public void test() {
+	public void test() throws IOException {
 		Asciidoctor asciidoctor = Asciidoctor.Factory.create();
 		RubyExtensionRegistry rubyExtensionRegistry = asciidoctor
 				.rubyExtensionRegistry();
@@ -30,7 +24,10 @@ public class GherkinRubyBlockMacroTest {
 								.getResourceAsStream("/com/github/domgold/asciidoctor/extension/gherkin/gherkinblockmacro.rb"))
 				.blockMacro("gherkin", "GherkinBlockMacroProcessor");
 
-		File destinationDir = new File("target");
+		File destinationDir = new File("target/test-output");
+		if(!destinationDir.exists() && !destinationDir.mkdirs()) {
+			throw new IOException("could not create test-output dir");
+		}
 		Options options = options().toDir(destinationDir).safe(SafeMode.UNSAFE)
 				.get();
 		asciidoctor.convertFile(new File(

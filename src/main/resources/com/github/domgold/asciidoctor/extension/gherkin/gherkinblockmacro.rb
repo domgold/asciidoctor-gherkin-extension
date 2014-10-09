@@ -1,3 +1,4 @@
+#A block macro processor converting gherkin feature files to asciidoctor markup
 require 'asciidoctor'
 require 'asciidoctor/extensions'
 require 'erb'

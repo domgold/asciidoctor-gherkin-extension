@@ -16,8 +16,17 @@ import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
 
+/**
+ * A gherkin {@link Formatter} producing a {@link Map} containing keys with the feature's content.
+ * @author Dominik
+ *
+ */
 public class MapFormatter implements Formatter {
 
+	/**
+	 * Get the default template as a {@link String}.
+	 * @return the default template content.
+	 */
 	public static String getDefaultTemplate() {
 
 		String text = "";
@@ -33,6 +42,11 @@ public class MapFormatter implements Formatter {
 		return text;
 	}
 
+	/**
+	 * Parse the content of a feature file.
+	 * @param fileContent the feature file's content as {@link String}.
+	 * @return a Map representing the feature file's content.
+	 */
 	public static Map<String, Object> parse(String fileContent) {
 		MapFormatter f = new MapFormatter();
 		Parser p = new Parser(f);
@@ -45,6 +59,9 @@ public class MapFormatter implements Formatter {
 	private Map<String, Object> currentStep;
 	private Map<String, Object> currentExamples;
 
+	/**
+	 * Default constructor.
+	 */
 	public MapFormatter() {
 		super();
 	}
@@ -123,6 +140,10 @@ public class MapFormatter implements Formatter {
 
 	}
 
+	/**
+	 * Get the feature as Map.
+	 * @return a {@link Map} representing the feature file's content.
+	 */
 	public Map<String, Object> getFeature() {
 		return currentFeature;
 	}

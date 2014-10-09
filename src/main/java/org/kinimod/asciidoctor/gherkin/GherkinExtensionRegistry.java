@@ -8,7 +8,9 @@ import org.asciidoctor.extension.RubyExtensionRegistry;
 import org.asciidoctor.extension.spi.ExtensionRegistry;
 
 /**
+ * Registers the gherkin ruby extension via the registry mechanism provided by Asciidoctor
  * @author Dominik
+ * @see ExtensionRegistry
  *
  */
 public final class GherkinExtensionRegistry implements ExtensionRegistry {
@@ -32,7 +34,9 @@ public final class GherkinExtensionRegistry implements ExtensionRegistry {
 				.rubyExtensionRegistry();
 		rubyExtensionRegistry
 				.loadClass(
-						this.getClass().getResourceAsStream("/com/github/domgold/asciidoctor/extension/gherkin/gherkinblockmacro.rb"))
+						this.getClass()
+								.getResourceAsStream(
+										"/com/github/domgold/asciidoctor/extension/gherkin/gherkinblockmacro.rb"))
 				.blockMacro("gherkin", "GherkinBlockMacroProcessor");
 	}
 
