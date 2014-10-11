@@ -1,4 +1,4 @@
 asciidoctor-gherkin-extension
 =============================
 
-An [Asciidoctor](http://asciidoctor.org) extension for using gherkin feature files in asciidoc files.
+[Asciidoctor](http://asciidoctor.org) extension to format gherkin feature files in asciidoc files.
