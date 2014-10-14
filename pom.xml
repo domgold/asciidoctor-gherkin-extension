@@ -6,6 +6,12 @@
 	<artifactId>asciidoctor-gherkin-extension</artifactId>
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
+	
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
 
 	<name>asciidoctor-gherkin-extension</name>
 	<description>Asciidoctor extension to format gherkin feature files in asciidoc files.</description>
