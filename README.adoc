@@ -1,0 +1,102 @@
+= asciidoctor-gherkin-extension
+:github-url: https://github.com/domgold/asciidoctor-gherkin-extension/blob/master
+http://asciidoctor.org[Asciidoctor] extension to format gherkin feature files in asciidoc files.
+
+You can use this extension to include your gherkin feature files in asciidoc in the form of sections, paragraphs, lists and tables. 
+
+The conversion is based on simple, customizable erb template.
+
+== Usage
+
+The following feature
+
+.simple.feature
+----
+Feature: A simple feature
+  This is the feature description.
+
+  Background: Background
+    Given a simple background step.
+
+  Scenario: Scenario title
+    Given a simple scenario step
+    When I render the asciidoctor content to html
+    Then my feature gets nicely formatted in html.
+----
+
+can be included via the gherkin block macro :
+
+....
+gherkin::./simple.feature[]
+....
+
+and gets rendered to a 3nd level section :
+
+.Corresponding intermediate asciidoc source
+-----
+=== A simple feature
+
+This is the feature description.
+
+==== Background
+
+[.step-list]
+* *Given* a simple background step.
+
+==== Scenario title
+
+[.step-list]
+* *Given* a simple scenario step
+* *When* I render the asciidoctor content to html
+* *Then* my feature gets nicely formatted in html.
+-----
+
+If the 3rd level section doesn't match the section level at the point where you want to include your feature file, you can adjust the section level via the `:leveloffset:` attribute.
+
+----
+:leveloffset: +1
+gherkin::./simple.feature[]
+:leveloffset: +1
+----
+
+Or just create your own template.
+
+See the integration tests for a {github-url}/src/it/asciidoctor-maven-with-gherkin-it/pom.xml[complete maven example].
+
+== Custom templates
+
+You can use the `template` attribute to specify a custom `erb` template. 
+The attribute value is used as a relative file path, resolved using the docdir attribute as base directory.
+The template receives a hash called `feature` containing the feature elements (scenarios, steps, examples, docstrings etc.).
+
+Here is an example of a custom template rendering a table with one row per scenario : 
+
+.mytemplate.erb
+----
+.<%= feature['name'] %>
+|====
+<%if feature.key?('scenarios') %><% feature['scenarios'].each do |scenario| %>| <%= scenario['name'] %>
+<% end %>
+<% else %>
+| Nothing to show.
+<% end %>
+|====
+----
+
+assuming you place this template in the same directory as your asciidoc file, the following asciidoc content
+
+----
+gherkin::./simple.feature[template=mytemplate.erb]
+
+//or this : (template is the first positional attribute)
+
+gherkin::./simple.feature[mytemplate.erb]
+----
+
+would render like
+
+.My feature title
+|====
+| Scenario title1
+| Scenario title2
+|====
