@@ -30,7 +30,7 @@ can be included via the gherkin block macro :
 gherkin::./simple.feature[]
 ....
 
-and gets rendered to a 3nd level section :
+and gets rendered into a 3rd level section with subsections :
 
 .Corresponding intermediate asciidoc source
 -----
@@ -54,7 +54,7 @@ This is the feature description.
 If the 3rd level section doesn't match the section level at the point where you want to include your feature file, you can adjust the section level via the `:leveloffset:` attribute.
 
 ----
-:leveloffset: +1
+:leveloffset: -1
 gherkin::./simple.feature[]
 :leveloffset: +1
 ----
