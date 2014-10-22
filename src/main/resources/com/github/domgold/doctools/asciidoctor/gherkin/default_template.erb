@@ -1,5 +1,4 @@
 
-
 === <%= feature['name'] %>
 
 <%if feature.key?('description') %>
@@ -17,21 +16,27 @@
 <%= step['doc_string']['value'] %>
 ....
 <% end %><%if step.key?('rows') %>
-+
++<% if step['rows'].first && step['rows'].first.key?('cols') %>
+[<%= step['rows'].first['cols'] %>]<% end %>
 |====
-<% step['rows'].each_with_index do |row, index| %><% row['cells'].each do |cell| %>a| <%= cell %> <% end %>
+<% step['rows'].each_with_index do |row, index| %><% row['cells'].each_with_index do |cell, i| %><%
+if row.key?('cell-styles') && row['cell-styles'].length > i %><%= row['cell-styles'][i] %><% end %>| <%= cell %> <% end %>
 <% end %>|====
 <% end %>
 
 <% end %>
 <% end %>
 
-<%if feature['background'].key?('examples') %>
+<%if feature['background'].key?('examples') 
+example = feature['background']['examples'] %>
 
-===== <%= feature['background']['examples']['keyword'].strip %> <%= feature['background']['examples']['name'] %>
+===== <%= example['keyword'].strip %> <%= example['name'] %>
 
+<% if example['rows'].first && example['rows'].first.key?('cols') %>
+[<%= example['rows'].first['cols'] %>]<% end %>
 |====
-<% feature['background']['examples']['rows'].each_with_index do |row, index| %><% row['cells'].each do |cell| %>a| <%= cell %> <% end %>
+<% example['rows'].each_with_index do |row, index| %><% row['cells'].each_with_index do |cell, i| %><%
+if row.key?('cell-styles') && row['cell-styles'].length > i %><%= row['cell-styles'][i] %><% end %>| <%= cell %> <% end %>
 <% if index == 0 %>
 <% end %><% end %>|====
 <% end %>
@@ -48,21 +53,28 @@
 <%= step['doc_string']['value'] %>
 ....
 <% end %><%if step.key?('rows') %>
-+
++<% if step['rows'].first && step['rows'].first.key?('cols') %>
+[<%= step['rows'].first['cols'] %>]<% end %>
 |====
-<% step['rows'].each_with_index do |row, index| %><% row['cells'].each do |cell| %>a| <%= cell %> <% end %>
+<% step['rows'].each_with_index do |row, index| %><% row['cells'].each_with_index do |cell, i| %><%
+if row.key?('cell-styles') && row['cell-styles'].length > i %><%= row['cell-styles'][i] %><% end %>| <%= cell %> <% end %>
 <% end %>|====
 <% end %>
 
 <% end %>
 <% end %>
 
-<%if scenario.key?('examples') %>
+<%if scenario.key?('examples') 
+example = scenario['examples'] 
+%>
 
-===== <%= scenario['examples']['keyword'].strip %> <%= scenario['examples']['name'] %>
+===== <%= example['keyword'].strip %> <%= example['name'] %>
 
+<% if example['rows'].first && example['rows'].first.key?('cols') %>
+[<%= example['rows'].first['cols'] %>]<% end %>
 |====
-<% scenario['examples']['rows'].each_with_index do |row, index| %><% row['cells'].each do |cell| %>a| <%= cell %> <% end %>
+<% example['rows'].each_with_index do |row, index| %><% row['cells'].each_with_index do |cell, i| %><%
+if row.key?('cell-styles') && row['cell-styles'].length > i %><%= row['cell-styles'][i] %><% end %>| <%= cell %> <% end %>
 <% if index == 0 %>
 <% end %><% end %>|====
 

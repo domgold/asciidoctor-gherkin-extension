@@ -63,6 +63,41 @@ Or just create your own template.
 
 See the integration tests for a {github-url}/src/it/asciidoctor-maven-with-gherkin-it/pom.xml[complete maven example].
 
+=== Formatting tables
+
+You can add some asciidoctor formatting to tables, e.g. column widths, header style, etc.
+
+For example, the following gherkin table 
+
+----
+  Given a complex background step with table with header
+    #cols=".<2,.^5,^.>3",options="header"
+    #cells=h,h,h
+    | Header Cell 1            | Header Cell 2          | Header Cell 3 |
+    #cells=,m,
+    | Cell 1 Row 1             | Cell 2 Row 1 monospace | Cell 3 Row 1  |
+    | Cell 1 Row 2 with *bold* | Cell 2 Row 2           | Cell 3 Row 2  |
+----
+
+renders as asciidoctor equivalent :
+
+----
+[.step-list]
+* *Given* a complex background step with table with header
++
+[cols=".<2,.^5,^.>3",options="header"]
+|====
+h| Header Cell 1 h| Header Cell 2 h| Header Cell 3
+| Cell 1 Row 1 m| Cell 2 Row 1 monospace | Cell 3 Row 1 
+| Cell 1 Row 2 with *bold* | Cell 2 Row 2 | Cell 3 Row 2 
+|====
+
+----
+
+If the  first comment of the first row starts with "cols=", then the content of the comment gets placed between brackets right before the table.
+
+Row comments starting with "cells=" get split on "," and become cell formatters.
+
 == Custom templates
 
 You can use the `template` attribute to specify a custom `erb` template. 
