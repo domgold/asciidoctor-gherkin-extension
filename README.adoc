@@ -4,7 +4,7 @@ http://asciidoctor.org[Asciidoctor] extension to format gherkin feature files in
 
 You can use this extension to include your gherkin feature files in asciidoc in the form of sections, paragraphs, lists and tables. 
 
-The conversion is based on simple, customizable erb template.
+The conversion is based on a simple, customizable erb template.
 
 == Usage
 
@@ -100,3 +100,20 @@ would render like
 | Scenario title1
 | Scenario title2
 |====
+
+== Character Encoding
+
+You can use attributes to define the encoding for reading the template file and the feature file.
+
+You can define these attributes either in the block macro or at the document level.
+
+template-encoding::
+  Used to read the custom template file if specified.
+encoding::
+  Used to read the feature file.
+
+
+.Defining feature encoding
+----
+gherkin::./simple.feature[encoding=UTF-8]
+----

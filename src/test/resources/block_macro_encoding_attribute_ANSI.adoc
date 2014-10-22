@@ -1,0 +1,9 @@
+= Example simple
+
+== Mes fonctionnalités
+
+gherkin::./french_ANSI.feature[]
+
+gherkin::./french_UTF8.feature[encoding=UTF-8]
+
+gherkin::./french_ANSI.feature[encoding=iso-8859-1]

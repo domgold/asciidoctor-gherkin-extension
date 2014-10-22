@@ -14,8 +14,6 @@ class GherkinBlockMacroProcessor < Asciidoctor::Extensions::BlockMacroProcessor
     doc = parent.document
     reader = parent.document.reader
     
-    print doc.attributes
-
     if attributes.key?("template-encoding")
     	template_encoding = attributes["template-encoding"]
     elsif doc.attributes.key?("template-encoding")

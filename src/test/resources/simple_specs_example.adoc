@@ -5,5 +5,3 @@
 gherkin::./simple.feature[]
 
 gherkin::./simple2.feature[]
-
-gherkin::./selfcare.feature[]

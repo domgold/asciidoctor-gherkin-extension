@@ -1,0 +1,9 @@
+= Simple specs example
+
+== My features
+
+gherkin::./french_UTF8.feature[]
+
+gherkin::./french_UTF8.feature[encoding=UTF-8]
+
+gherkin::./french_ANSI.feature[encoding=iso-8859-1]
