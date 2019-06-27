@@ -5,3 +5,5 @@
 gherkin::./simple.feature[]
 
 gherkin::./simple2.feature[]
+
+gherkin::./simple3.feature[]
